@@ -3,15 +3,25 @@
 /*
 
 captchaX by @aaviator42
-v0.1, 2024-09-01
-LICENSED FOR USAGE TO COMPUTRAIN ONLY
+text-in-image captcha generation
+
+v0.2, 2025-08-07
+AGPLv3
 
 */
-
-
-// session_start();
-
 namespace captchaX;
+
+// Configuration constant for storage directory
+// Override this constant before including the library to change storage location, or edit it below
+if (!defined('CAPTCHAX_STORAGE_DIR')) {
+    define('CAPTCHAX_STORAGE_DIR', __DIR__ . '/pub/captchas/');
+}
+
+// Configuration constant for font file
+// Override this constant before including the library to change font file, or edit it below
+if (!defined('CAPTCHAX_FONT_FILE')) {
+    define('CAPTCHAX_FONT_FILE', __DIR__ . '/CrayonLibre.ttf');
+}
 
 // Function to recursively delete a directory and its contents
 function deleteDir($dirPath) {
@@ -32,7 +42,7 @@ function deleteDir($dirPath) {
 // Function to generate the CAPTCHA image
 function generate() {
     // Set the directory where captchas will be saved
-    $captchasDir = __DIR__ . '/../captchas/';
+    $captchasDir = CAPTCHAX_STORAGE_DIR;
     
     // Get all subdirectories in the captchas directory
     $subDirs = glob($captchasDir . '*', GLOB_ONLYDIR);
@@ -48,18 +58,18 @@ function generate() {
     }
 
     // Create the image
-    $image = imagecreatetruecolor(200, 50);
+    $image = \imagecreatetruecolor(200, 50);
 
     // Set colors
-    $bgColor = imagecolorallocate($image, 255, 255, 255); // white background
-    $textColor = imagecolorallocate($image, 255, 0, 0);   // red text
-    $lineColor = imagecolorallocate($image, 64, 64, 64);  // grey lines
+    $bgColor = \imagecolorallocate($image, 255, 255, 255); // white background
+    $textColor = \imagecolorallocate($image, 255, 0, 0);   // red text
+    $lineColor = \imagecolorallocate($image, 64, 64, 64);  // grey lines
 
     // Fill the background with white
-    imagefilledrectangle($image, 0, 0, 200, 50, $bgColor);
+    \imagefilledrectangle($image, 0, 0, 200, 50, $bgColor);
 
     // Generate a random string for the CAPTCHA
-    $characters = '123456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+    $characters = '234678ABCDEFGHJKLMNPRSTUVWXY';
     $captchaText = '';
     $captchaLength = 4;
     for ($i = 0; $i < $captchaLength; $i++) {
@@ -76,13 +86,13 @@ function generate() {
 
     // Add the text to the image using a random font size
     $fontSize = 25;
-    $fontFile = __DIR__ . '/CrayonLibre.ttf'; // Ensure to have a TTF font file
+    $fontFile = CAPTCHAX_FONT_FILE;
 
     if (file_exists($fontFile)) {
-        imagettftext($image, $fontSize, mt_rand(-10, 10), mt_rand(10, 60), mt_rand(30, 40), $textColor, $fontFile, $captchaText);
+        \imagettftext($image, $fontSize, mt_rand(-10, 10), mt_rand(10, 60), mt_rand(30, 40), $textColor, $fontFile, $captchaText);
     } else {
         // If the font is not available, use default font
-        imagestring($image, 5, 50, 15, $captchaText, $textColor);
+        \imagestring($image, 5, 50, 15, $captchaText, $textColor);
     }
 
     // Create the directory path based on the current date
@@ -99,10 +109,10 @@ function generate() {
     $filePath = $directory . $randomFilename;
 
     // Save the image with the random filename
-    imagepng($image, $filePath);
+    \imagepng($image, $filePath);
 
     // Free memory
-    imagedestroy($image);
+    \imagedestroy($image);
 
     // Return the CAPTCHA text and the file path
     return [
