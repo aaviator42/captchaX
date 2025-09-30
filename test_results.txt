@@ -1,7 +1,7 @@
 Beginning captchaX Tests...
 Test file v0.2, 2025-08-07
-Storage Directory: C:\Users\aavi\Downloads\scratchspace\aavi-project-scaffold\dist\captchaX/test_captchas/
-Font File: C:\Users\aavi\Downloads\scratchspace\aavi-project-scaffold\dist\captchaX/CrayonLibre.ttf
+Storage Directory: C:\aavi-project-wd\dist\captchaX/test_captchas/
+Font File: C:\aavi-project-wd\dist\captchaX/CrayonLibre.ttf
 GD Extension: Available
 Font File Exists: Yes
 
@@ -21,7 +21,7 @@ Test 3:     Image file creation
 Function:   Verify image file exists and is valid
 Expecting:  PNG image file exists
 Result:     Image file created successfully (OK)
-  Path: C:\Users\aavi\Downloads\scratchspace\aavi-project-scaffold\dist\captchaX/test_captchas/2025-08-07/HVSGDFUX6R.png
+  Path: C:\aavi-project-wd\dist\captchaX/test_captchas/2025-08-07/HVSGDFUX6R.png
   Size: 200x50 pixels
   Type: image/png
 
@@ -29,7 +29,7 @@ Test 4:     Directory structure creation
 Function:   Verify date-based directory structure
 Expecting:  Directory created with current date
 Result:     Date directory created successfully (OK)
-  Directory: C:\Users\aavi\Downloads\scratchspace\aavi-project-scaffold\dist\captchaX/test_captchas/2025-08-07
+  Directory: C:\aavi-project-wd\dist\captchaX/test_captchas/2025-08-07
 
 Test 5:     Multiple CAPTCHA generation
 Function:   Generate 5 CAPTCHAs and verify uniqueness
@@ -83,4 +83,5 @@ Result:     Character distribution is good (OK)
   Unused characters: 0 out of 28
 
 Tests completed!
+
 FINAL RESULTS: ALL TESTS PASSED!!!
